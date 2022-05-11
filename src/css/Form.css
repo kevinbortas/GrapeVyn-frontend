@@ -1,0 +1,134 @@
+.Form {
+    background-color: white;
+    border: 1px solid #e5e5e5;
+    border-radius: 20px;
+    text-align: left;
+    /* height: 80vh; */
+}
+
+.EmailSent {
+    display: flex;
+    flex-direction: row;
+    padding-top: 25%;
+    border-radius: 20px;
+    text-align: left;
+    align-items: center;
+    justify-content: center;
+}
+
+.EmailSent > h2 {
+    margin-left: 20px;
+}
+
+.confirmed {
+    height: 50px;
+    width: 50px;
+}
+
+.Title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.TitleLogo {
+    height: 80px;
+    width: 80px;
+}
+
+.TitleName {
+    font-size: 50px;
+    margin-left: 20px;
+}
+
+.FormBody {
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    justify-content: center;
+    padding-top: 25px;
+    padding-bottom: 25px;
+    padding-left: 20%;
+    padding-right: 20%;
+}
+
+.FormBody > label {
+    font-size: 18px;
+    font-weight: bold;
+    padding-bottom: 10px;
+}
+
+.FormBody > input {
+    border: 1px solid #e5e5e5;
+    border-radius: 10px;
+    padding: 10px;
+    margin-bottom: 20px;
+    font-family: 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+.FormBody > input:focus {
+    outline: none;
+    border: 1px solid var(--primary_colour);
+    transition: border .2s ease-in;
+}
+
+.FormBody > textarea {
+    resize: none;
+    border: 1px solid #e5e5e5;
+    border-radius: 10px;
+    padding: 10px;
+    margin-bottom: 20px;
+    height: 100px;
+    font-family: 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+.FormBody > textarea:focus {
+    outline: none;
+    border: 1px solid var(--primary_colour);
+    transition: border .2s ease-in;
+}
+
+.SubmitButton {
+    background-color: var(--primary_colour) !important;
+    color: white !important;
+    border: none !important;
+    font-size: 18px !important;
+    font-weight: 700 !important;
+    height: 45px !important;
+    width: 100% !important;
+    text-transform: inherit !important;
+    justify-content: center !important;
+    border-radius: 20px !important;
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+    position: inherit !important;
+}
+
+.SubmitButton:hover {
+    background-color: var(--button_hover) !important;
+}
+
+@media screen and (max-width: 450px) {
+    .TitleLogo {
+        height: 40px;
+        width: 40px;
+    }
+    
+    .TitleName {
+        font-size: 30px;
+        margin-left: 20px;
+    }
+}
+
+@media screen and (min-width: 451px) and (max-width: 700px) {
+    .TitleLogo {
+        height: 60px;
+        width: 60px;
+    }
+    
+    .TitleName {
+        font-size: 40px;
+        margin-left: 20px;
+    }
+}

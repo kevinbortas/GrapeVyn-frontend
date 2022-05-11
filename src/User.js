@@ -14,13 +14,14 @@ import mintNFT from './ImmuSDKClient.mjs';
 import Navbar from './Navbar';
 import navBarStore from './redux/navBarStore';
 import Footer from './footer/Footer';
+import AccountBox from './AccountBoxComponent';
+import AccountBlocks from './AccountBlocksComponent';
+import { useParams } from 'react-router-dom';
+import UserContainer from './UserContainer';
 
-function App() {
-  // const providerUrl = process.env.PROVIDER_URL || 'http://localhost:7545';
-
-  let className = ["nav-links-clicked", "nav-links", "nav-links"];
-  navBarStore.dispatch(menuSelected(className, 0, ""));
-
+function User() {
+  let className = ["nav-links", "nav-links", "nav-links"];
+  navBarStore.dispatch(menuSelected(className, 4, ""));
 
   return (
     <div>
@@ -28,9 +29,8 @@ function App() {
             <Navbar/>
       </Provider>
       <div className="App">
-          <Provider store={store}>
-              <MintBox/>
-              <MainFeed/>
+        <Provider store={store}>
+            <UserContainer />
           </Provider>
       </div>
         <Footer/>
@@ -38,4 +38,4 @@ function App() {
   );
 }
 
-export default App;
+export default User;

@@ -1,0 +1,14 @@
+.AboutComponent {
+    background-color: white;
+    border-radius: 20px;
+    border: 1px solid #e5e5e5;
+    text-align: left;
+    padding: 20px;
+    color: #353935;
+    font-weight: 400;
+}
+
+.AboutComponent > h3 {
+    color: #848884;
+    font-weight: 400;
+}

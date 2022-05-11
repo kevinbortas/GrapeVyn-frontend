@@ -1,0 +1,96 @@
+  .post {
+    background-color: white;
+    border-radius: 20px;
+    border: 1px solid #e5e5e5;
+    margin: 10px 0;
+    text-align: left;
+  }
+  .PostHeader {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    margin-left: 25px;
+    margin-right: 25px;
+    padding-top: 20px;
+  }
+  .UserName {
+    flex: 1;
+  }
+  .ENS {
+    margin-top: 0px;
+    margin-bottom: 0px;
+    color: black;
+  }
+  .Timestamp {
+    display: inline-block;
+    font-size: 14px;
+    margin: 0px;
+    justify-content: center;
+    vertical-align: middle;
+  }
+  .Bullet {
+    display: inline-block;
+    padding-left: 5px;
+    padding-right: 5px;
+    font-size: 14px;
+    margin: 0px;
+    justify-content: center;
+    vertical-align: middle;
+  }
+  .DisplayEns {
+    display: inline-block;
+    font-size: 18px;
+    text-decoration: none;
+    margin: 0px;
+    justify-content: center;
+    vertical-align: middle;
+    padding: 0px;
+  }
+  .WalletAddress {
+    font-size: 12px;
+    margin: 0px;
+    font-weight: 400;
+    text-decoration: none;
+    color: gray;
+  }
+  .WalletAddress > a {
+    font-size: 12px;
+    margin: 0px;
+    text-decoration: none;
+    color: gray;
+  }
+  .Description {
+    font-size: 17px;
+    margin-bottom: 20px;
+    margin-left: 25px;
+    margin-right: 25px;
+    white-space: pre-wrap;
+    color: #353935;
+  }
+  .PostBlockId {
+    font-size: 12px;
+    text-align: end;
+    margin: 15px;
+    color: #353935;
+  }
+  .PostBody {
+    flex: 1;
+  }
+  .PostAvatar {
+    margin-right: 20px;
+  }
+
+  @media screen and (max-width: 900px) {
+    .DisplayEns {
+      font-size: 16px;
+    }
+    .Timestamp {
+      font-size: 12px;
+    }
+    .Bullet {
+      font-size: 12px;
+    }
+    .WalletAddress > a {
+      font-size: 10px;
+    }
+  }

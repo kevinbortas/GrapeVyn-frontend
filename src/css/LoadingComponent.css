@@ -1,0 +1,46 @@
+.Spinner {
+    width: 100vw;
+    height:100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--primary_colour);
+}
+
+.HalfSpinner {
+    width: 200px;
+    height: 200px;
+    border: 5px solid white;
+    border-top: 5px solid transparent;
+    border-radius: 50%;
+    animation: spin 0.5s linear 0s infinite;
+}
+
+.ContentSpinner {
+    width: 100%;
+    margin-top: 20%;
+    margin-bottom: 20%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: transparent;
+}
+
+.ContentHalfSpinner {
+    width: 200px;
+    height: 200px;
+    border: 5px solid white;
+    border-top: 5px solid transparent;
+    border-radius: 50%;
+    animation: spin 0.5s linear 0s infinite;
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+

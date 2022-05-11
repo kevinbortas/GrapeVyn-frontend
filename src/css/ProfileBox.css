@@ -1,0 +1,138 @@
+.ProfileBox {
+    background-color: white;
+    border-radius: 20px;
+    border: 1px solid #e5e5e5;
+    padding: 25px;
+    margin-top: 10px;
+  }
+  .ProfileBoxHeader {
+    display: flex;
+    align-items: center;
+    justify-content: left;
+  }
+  
+  .UserAvatar {
+    margin-right: 25px;
+  }
+  
+  .User {
+    margin-top: 20px;
+    margin-left: 10px;
+  }
+  
+  .ens {
+    display: flex;
+    align-items: center;
+    justify-content: left;
+  }
+  
+  .UserWalletInformation {
+    margin-bottom: 20px;
+    text-align: left;
+    align-items: left;
+    padding: 0px;
+  }
+
+  .EnsVerified {
+    margin-right: 10px !important;
+  }
+  
+  .ens > h2 {
+    font-size: 30px;
+    padding: 0px;
+    margin: 0px;
+  }
+  
+  .AddressLink {
+    font-size: 16px;
+    padding: 5px;
+    margin: 0px;
+    color: gray;
+    text-decoration: none;
+    overflow: visible;
+    border-radius: 20px;
+    /* border: 1px solid #ccc; */
+  }
+  
+  .ProfileBoxBody {
+    align-items: center;
+  }
+  
+  .ProfileBoxUserDescription {
+    font-size: 16px;
+    white-space: pre-wrap;
+    color: #353935;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .NumberOfPosts {
+    margin-right: 40px;
+  }
+  
+  .LastPosted {
+    margin-left: 40px;
+  }
+  
+  .VerticalBar {
+    height: 80px;
+    width: 2px;
+    background-color: #eeeeee;
+  }
+  
+  .HorizontalBar {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    height: 2px;
+    width: 100%;
+    background-color: #eeeeee;
+  }
+  
+  .value {
+    margin: 0px;
+    font-size: 30px;
+  }
+  
+  .key {
+    margin: 5px 0px 0px 0px;
+    font-size: 20px;
+    color: gray;
+  }
+  
+  .ProfileBoxBody {
+    flex: 1;
+  }
+  
+  @media screen and (max-width: 750px) {
+    .User {
+      margin-left: 0px;
+    }
+  
+    .ens > h2 {
+      font-size: 24px;
+    }
+  
+    .AddressLink {
+      font-size: 12px;
+      padding: 5px;
+      text-decoration: none;
+      border-radius: 20px;
+      /* border: 1px solid #ccc; */
+    }
+  }
+  
+  @media screen and (max-width: 500px) {
+    .ProfileBox {
+      padding: 20px;
+    }
+  
+    .AddressLink {
+      font-size: 11px;
+      text-decoration: none;
+      padding: 0px;
+      margin: 0px;
+      /* border-radius: 20px; */
+      /* border: 1px solid #ccc; */
+    }
+  }
