@@ -51,13 +51,20 @@ class MainFeed extends React.Component {
         })
     }
 
+    refreshPosts() {
+        getCollectionData(this.state.pageSize, "")
+        .then((returnedTokens) => {
+            this.setState({ tokens: returnedTokens.tokenArray, cursor: returnedTokens.returnedCursor, bottomReached: false, remaining: returnedTokens.remaining });
+        })
+    }
+
     getCurrentBlock() {
-        fetch('http://localhost:3001/current-id')
+        fetch('https://29o8eqgw21.execute-api.eu-west-1.amazonaws.com/getCurrentId')
         .then(response => {
             return response.json();
         })
         .then(data => {
-            let returnedBlockId = parseInt((data["rows"][0]["TokenId"]));
+            let returnedBlockId = parseInt((data.data.rows[0].TokenId));
             this.setState({currentBlockId: returnedBlockId, update: false, refreshNotifier: ""})
         });
     }
@@ -78,12 +85,12 @@ class MainFeed extends React.Component {
       }
 
     checkBlockId() {
-        fetch('http://localhost:3001/current-id')
+        fetch('https://29o8eqgw21.execute-api.eu-west-1.amazonaws.com/getCurrentId')
         .then(response => {
             return response.json();
         })
         .then(data => {
-            let returnedBlockId = parseInt((data["rows"][0]["TokenId"]));
+            let returnedBlockId = parseInt((data.data.rows[0].TokenId));
             if (this.state.currentBlockId < returnedBlockId){
                 this.setState({refreshNotifier: `Your GrapeVyn is behind by ${returnedBlockId - this.state.currentBlockId} token(s)`, update: true})
             }
@@ -92,8 +99,8 @@ class MainFeed extends React.Component {
 
     updateBlock = (event) => {
         event.preventDefault();
-        this.setState({ tokens: [] })
-        this.getPosts();
+        this.setState({ tokens: [], cursor: "", remaining: 1 })
+        this.refreshPosts();
         this.getCurrentBlock();
     }
   

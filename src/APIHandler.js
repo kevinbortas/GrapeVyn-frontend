@@ -1,5 +1,3 @@
-import store from './redux/store.js';
-
 let collectionUrl = "https://api.ropsten.x.immutable.com/v1/assets?order_by=updated_at&collection=0x7556EE38C43f319E935E663170137f4849c6AA60"
 
 // Gets Token Blueprint
@@ -88,4 +86,16 @@ export const getTokenData = async (id) => {
     let url = tokenURL + id;
     let response = await (await fetch(url)).json();
     return response["blueprint"]
+}
+
+export const mintToken = async (address, message) => {
+    let response = await ( await fetch('https://29o8eqgw21.execute-api.eu-west-1.amazonaws.com/mintToken', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ message, address }),
+    })).json()
+
+    console.log(response);
 }

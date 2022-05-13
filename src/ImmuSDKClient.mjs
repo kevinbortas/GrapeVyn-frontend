@@ -93,6 +93,8 @@ const mintNFT = async (message) => {
     // creating a signer from the provided private key
     const signer = new Wallet(MINTER_PRIVATE_KEY).connect(provider);
 
+    console.log(signer);
+
     // console.log(await link.sign({
     //     message: 'Mint post',
     //     description: 'Do you wish to mint this post to the GrapeVyn?',

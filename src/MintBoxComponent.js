@@ -2,11 +2,12 @@ import { Avatar, Button } from "@material-ui/core";
 import avatar from './apple.png';
 import React, { useEffect, useRef, useState } from "react";
 import { connect } from 'react-redux';
-import { getOwnedTokens, init, mintToken } from './Web3Client';
+// import { getOwnedTokens, init, mintToken } from './Web3Client';
 import { ThemeProvider } from '@material-ui/styles';
 import { theme } from './ThemeManager';
 import "./css/MintBox.css";
 import mintNFT from "./ImmuSDKClient.mjs";
+import { mintToken } from "./APIHandler";
 import ProgressBar from "./ProgressBar";
 
 function MintBox(props) {
@@ -21,7 +22,7 @@ function MintBox(props) {
       if (mintData !== "") {
         setLoading(90);
         setTransitionTime(1);
-        mintNFT(mintData)
+        mintToken(props.state.address, mintData)
         .then(tx => {
           setMinted(true);
           setMintData("");
