@@ -72,10 +72,6 @@ export const getCollectionDataV2 = async (page_size, currentTokenId) => {
     }
 
     return { tokenArray: await tokenArrayBuilder({ result }), currentTokenId };
-    // let returnedCursor = response.cursor;
-    // let remaining = response.remaining
-
-    // return { tokenArray: await tokenArrayBuilder(response), returnedCursor, remaining };
 }
 
 export const getCollectionData = async (pageSize, cursor) => {

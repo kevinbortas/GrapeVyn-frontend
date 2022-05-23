@@ -1,5 +1,5 @@
 import { Button } from "@material-ui/core";
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { connect } from 'react-redux';
 import "Home/Main/MintBox.css";
 import { mintToken } from "APIController/APIHandler";
@@ -8,12 +8,9 @@ import ProgressBar from "Dynamic/ProgressBar";
 function MintBox(props) {
 
     const [errorMessage, setErrorMessage] = useState("");
-    const [minted, setMinted] = useState(false);
-    const [isMintable, setIsMintable] = useState(false);
     const [mintData, setMintData] = useState("");
     const [loading, setLoading] = useState(0);
     const [transitionTime, setTransitionTime] = useState(1);
-    const progressBarRef = useRef(null);
   
     const mint = () => {
       if (mintData !== "") {
@@ -21,18 +18,16 @@ function MintBox(props) {
         setTransitionTime(1);
         mintToken(props.state.address, mintData)
         .then(response => {
-          if(response.data.errorMessage){
-            setErrorMessage(response.data.errorMessage)
+          if(response.data.error){
+            setErrorMessage(response.data.error)
             setLoading(0);
           }
           else {
             setErrorMessage("");
-            setMinted(true);
             setMintData("");
             setLoading(100);
           }
         }).catch(err => {
-          console.log("ERROR", err);
           setLoading(0);
         });
       }
@@ -40,6 +35,9 @@ function MintBox(props) {
   
     const getData = (value) => {
       setMintData(value.target.value);
+      if (props.state.isConnected) {
+        setErrorMessage("");
+      }
     }
 
     const handleTransitionEnd = () => {
@@ -48,6 +46,17 @@ function MintBox(props) {
         setTransitionTime(0);
       }
     };
+
+    useEffect(() => {
+      if (!props.state.isConnected) {
+        setErrorMessage("Please connect your wallet!");
+      }
+      else {
+        if (errorMessage === "Please connect your wallet!"){
+          setErrorMessage("");
+        }
+      }
+    })
 
     return (
       <div className="MintBox">
@@ -58,7 +67,6 @@ function MintBox(props) {
                   onChange={getData}
                   placeholder="What are you thinking today?"
                   type="text"
-                  // disabled={!props.state.isConnected}
               />
           </div>
           <div className="PostContainer">
@@ -69,16 +77,7 @@ function MintBox(props) {
               >
                   Post
             </Button>
-            {
-              props.state.isConnected
-              ? null
-              : <p className="PostError">Please connect your wallet!</p>
-            }
-            {
-              errorMessage && props.state.isConnected
-              ? <p className="PostError">{errorMessage}</p>
-              : null
-            }
+            <p className="PostError">{errorMessage}</p>
             </div>
       </div>
     );
