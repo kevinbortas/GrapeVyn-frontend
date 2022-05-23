@@ -1,6 +1,6 @@
-import home from 'icons/home.png';
-import info from 'icons/info.png';
-import gear from 'icons/settings.png';
+import home from 'res/icons/home.png';
+import info from 'res/icons/info.png';
+import gear from 'res/icons/settings.png';
 
 export const MenuItems = [
     {

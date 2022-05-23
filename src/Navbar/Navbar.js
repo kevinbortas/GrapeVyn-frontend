@@ -4,10 +4,10 @@ import 'Navbar/Navbar.css';
 import { Link, Navigate } from 'react-router-dom';
 import { searchAction } from 'redux/actions';
 import { connect, Provider } from 'react-redux';
-import burgerMenu from 'icons/burger-menu.png'
-import close from 'icons/close-black.png'
-import grapeLogo from 'icons/GrapeLogo_Color_Alpha45.png';
-import cross from 'icons/remove.png';
+import burgerMenu from 'res/icons/burger-menu.png'
+import close from 'res/icons/close-black.png'
+import grapeLogo from 'res/icons/GrapeLogo_Color_Alpha45.png';
+import cross from 'res/icons/remove.png';
 import UserBoxComponent from "User/UserBoxComponent";
 import store from "redux/store";
 

@@ -3,7 +3,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import "User/UserBox.css";
 import { Link } from "react-router-dom";
-import backArrow from 'icons/left-arrow.png';
+import backArrow from 'res/icons/left-arrow.png';
 
 class BackButton extends React.Component {
     componentDidMount() {

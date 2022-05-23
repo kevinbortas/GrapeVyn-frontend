@@ -1,6 +1,6 @@
 import 'Dynamic/LoadingComponent.css';
 import React from 'react';
-import grapeLogo from 'icons/GrapeLogo_PRD_Alpha45_00000.png';
+import grapeLogo from 'res/icons/GrapeLogo_PRD_Alpha45_00000.png';
 
 export const LoadingContentCircle = () => {
   return (
@@ -19,8 +19,8 @@ function Loading() {
     <div>
       <div className='LoaderWrapper'>
         <div className='Spinner'>
+            <img src={grapeLogo}/>
             <div className='HalfSpinner'></div>
-                <img src={grapeLogo}/>
         </div>
       </div>
     </div>

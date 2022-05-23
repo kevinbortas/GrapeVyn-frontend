@@ -1,14 +1,14 @@
 import 'Home/App.css';
 import 'contact-us/Form.css';
 import React, {useState} from 'react';
-import grapeLogo from 'icons/GrapeLogo_Color_Alpha45.png';
+import grapeLogo from 'res/icons/GrapeLogo_Color_Alpha45.png';
 import { Provider } from 'react-redux';
 import { menuSelected } from 'redux/actions.js';
 import Navbar from 'Navbar/Navbar';
 import navBarStore from 'redux/navBarStore';
 import { Button } from '@material-ui/core';
 import { send } from 'emailjs-com';
-import check from 'icons/check.png';
+import check from 'res/icons/check.png';
 import Footer from 'footer/Footer';
 
 function Contact() {

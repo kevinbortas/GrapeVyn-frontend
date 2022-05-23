@@ -1,7 +1,8 @@
 import { Avatar, Button } from "@material-ui/core";
 import React from 'react';
-import cross from 'icons/remove.png';
-import home from 'icons/home.png';
+import cross from 'res/icons/remove.png';
+import home from 'res/icons/home.png';
+import chevron from 'res/icons/down-arrow.png';
 import { connect } from 'react-redux';
 import { storeAddress } from "redux/actions";
 import { reverseLookUp } from 'Web3/Web3Client';
@@ -10,7 +11,6 @@ import { Navigate } from "react-router-dom";
 import Jazzicon, { jsNumberForAddress } from 'react-jazzicon';
 import { setUpAccount } from "Web3/ImmuSDKClient.mjs";
 import Dropdown from "User/Dropdown/Dropdown";
-import chevron from 'icons/down-arrow.png';
 import { shortenAddress } from "Helper/helper";
 
 class UserBox extends React.Component {
