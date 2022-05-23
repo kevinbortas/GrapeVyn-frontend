@@ -1,7 +1,7 @@
 import React from "react";
 import { Button, IconButton } from '@material-ui/core';
 import TwitterIcon from '@mui/icons-material/Twitter';
-import '../css/Footer.css';
+import './Footer.css';
 import { Link } from "react-router-dom";
 
 function Footer() {
@@ -9,7 +9,7 @@ function Footer() {
         <div className='FooterContainer'>
           <footer className="Footer">
             <div className='Socials'>
-                <IconButton href="https://twitter.com/Kevin_Bortas" className="TwitterButton">
+                <IconButton href="https://twitter.com/grapevyn_" className="TwitterButton">
                     <TwitterIcon style={{ color: '#1DA1F2', fontSize: 40 }}/>
                 </IconButton>
             </div>

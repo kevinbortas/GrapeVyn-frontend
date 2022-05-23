@@ -1,16 +1,15 @@
-import '../css/App.css';
-import '../css/Form.css';
+import 'Home/App.css';
+import 'contact-us/Form.css';
 import React, {useState} from 'react';
-import grapeLogo from '../icons/grape.png';
+import grapeLogo from 'icons/GrapeLogo_Color_Alpha45.png';
 import { Provider } from 'react-redux';
-import { menuSelected } from '../redux/actions.js';
-import Navbar from '../Navbar';
-import navBarStore from '../redux/navBarStore';
-import { Button, IconButton } from '@material-ui/core';
-import TwitterIcon from '@mui/icons-material/Twitter';
+import { menuSelected } from 'redux/actions.js';
+import Navbar from 'Navbar/Navbar';
+import navBarStore from 'redux/navBarStore';
+import { Button } from '@material-ui/core';
 import { send } from 'emailjs-com';
-import check from '../icons/check.png';
-import Footer from '../footer/Footer';
+import check from 'icons/check.png';
+import Footer from 'footer/Footer';
 
 function Contact() {
   let className = ["nav-links", "nav-links", "nav-links-clicked",];

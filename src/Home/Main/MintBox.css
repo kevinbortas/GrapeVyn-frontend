@@ -1,0 +1,111 @@
+.MintBox {
+    padding: 20px;
+    background-color: white;
+    border: 1px solid #e5e5e5;
+    border-radius: 20px;
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.MintBoxInput {
+    justify-content: center;
+    align-items: center;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    margin-right: 10px;
+    justify-content: center;
+    align-items: center;
+}
+
+.MintBoxInput > textarea {
+    resize: none;
+    width: 100%;
+    font-size: 20px;
+    border-radius: 5px;
+    height: 100px;
+    border: 1px none;
+    font-family: 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+.MintBoxInput > textarea:focus {
+    outline: none;
+    border: 1px solid var(--primary_colour);
+    transition: border .2s ease-in;
+}
+
+.MintBoxInput > textarea:disabled {
+    width: 100%;
+    cursor: not-allowed !important;
+    background-color: #f5f5f5 !important;
+    border: 1px solid #e5e5e5 !important;
+    transition: all 0.5s ease-in !important;
+}
+
+.MintBoxButton {
+    background-color: var(--primary_colour) !important;
+    border: none !important;
+    color: white !important;
+    font-weight: 700 !important;
+    text-transform: inherit !important;
+    border-radius: 20px !important;
+    height: 45px !important;
+    width: 150px !important;
+    position: inherit !important;
+}
+
+.MintBoxButton:hover {
+    background-color: var(--button_hover) !important;
+}
+
+.Mui-disabled {
+    background-color: var(--button_disabled) !important;
+    border: none !important;
+    color: white !important;
+    font-weight: 700 !important;
+    text-transform: inherit !important;
+    border-radius: 20px !important;
+    height: 45px !important;
+    width: 150px !important;
+    position: inherit !important;
+    margin-left: 0px !important;
+    cursor: not-allowed !important;
+    pointer-events: all !important;
+}
+
+.Mui-disabled:hover {
+    background-color: var(--button_disabled) !important;
+}
+
+.PostContainer {
+    align-items: center;
+    display: flex;
+}
+
+.PostError {
+    font-size: 14px;
+    font-weight: 500;
+    text-align: left;
+    justify-content: center;
+    align-content: center;
+    margin-left: 10px;
+    color: rgb(255, 85, 85);
+}
+
+@media screen and (max-width: 900px) {
+    .MintBoxInput > textarea {
+        font-size: 18px;
+        position: inherit;
+    }
+
+    .MintBoxInput > textarea:disabled {
+        position: inherit !important;
+    }
+
+    .MintBoxButton {
+        height: 40px !important;
+        width: 100px !important;
+    }
+
+    .PostError {
+        font-size: 12px;
+    }
+}
