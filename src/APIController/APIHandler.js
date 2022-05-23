@@ -5,6 +5,8 @@ let contractAddress = "0xa503E5325c59147B42DC4bC71Cd5692402a67fD2";
 
 let collectionUrl = `https://api.ropsten.x.immutable.com/v1/assets?order_by=updated_at&collection=${contractAddress}`
 
+let collectionUrlV2 = `https://api.ropsten.x.immutable.com/v1/assets/${contractAddress}/`
+
 // Gets Token Blueprint
 let tokenURL = `https://api.ropsten.x.immutable.com/v1/mintable-token/${contractAddress}/`
 
@@ -57,6 +59,23 @@ export const getOwnedTokens = async (address, pageSize, cursor) => {
     let remaining = response.remaining
 
     return { tokenArray: await tokenArrayBuilder(response), returnedCursor, remaining };
+}
+
+export const getCollectionDataV2 = async (page_size, currentTokenId) => {
+    let result = []
+
+    for (page_size; page_size > 0; page_size--){
+        let url = collectionUrlV2 + currentTokenId;
+        let response = await (await fetch(url)).json();
+        result.push(response);
+        currentTokenId--;
+    }
+
+    return { tokenArray: await tokenArrayBuilder({ result }), currentTokenId };
+    // let returnedCursor = response.cursor;
+    // let remaining = response.remaining
+
+    // return { tokenArray: await tokenArrayBuilder(response), returnedCursor, remaining };
 }
 
 export const getCollectionData = async (pageSize, cursor) => {

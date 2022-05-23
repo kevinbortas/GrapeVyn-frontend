@@ -1,7 +1,7 @@
 import React from 'react';
 import Post from 'Post/PostComponent';
 import 'Home/App.css';
-import { getCollectionData } from 'APIController/APIHandler';
+import { getCollectionData, getCollectionDataV2 } from 'APIController/APIHandler';
 import { LoadingContentCircle } from 'Dynamic/LoadingComponent';
 
 const RefreshComponent = ({ refreshNotifier, updateBlock }) => {
@@ -18,15 +18,15 @@ class MainFeed extends React.Component {
         tokens: [],
         cursor: "",
         currentBlockId: 0,
+        remainingTokenIds: 0,
         refreshNotifier: "",
         update: false,
-        pageSize: 20,
+        pageSize: 10,
         bottomReached: true,
         remaining: 1,
     }
   
     componentDidMount() {
-        this.getPosts();
         this.getCurrentBlock();
 
         this.interval = setInterval(() => this.checkBlockId(), 5000);
@@ -42,29 +42,23 @@ class MainFeed extends React.Component {
         clearInterval(this.interval);
     }
 
-    getPosts() {
-        getCollectionData(this.state.pageSize, this.state.cursor)
-        .then((returnedTokens) => {
-            let currentTokens = this.state.tokens.concat(returnedTokens.tokenArray);
-            this.setState({ tokens: currentTokens, cursor: returnedTokens.returnedCursor, bottomReached: false, remaining: returnedTokens.remaining });
-        })
-    }
-
-    refreshPosts() {
-        getCollectionData(this.state.pageSize, "")
-        .then((returnedTokens) => {
-            this.setState({ tokens: returnedTokens.tokenArray, cursor: returnedTokens.returnedCursor, bottomReached: false, remaining: returnedTokens.remaining });
-        })
-    }
-
     getCurrentBlock() {
         fetch('https://29o8eqgw21.execute-api.eu-west-1.amazonaws.com/getCurrentId')
         .then(response => {
             return response.json();
         })
         .then(data => {
-            let returnedBlockId = parseInt((data.data.rows[0].TokenId));
-            this.setState({currentBlockId: returnedBlockId, update: false, refreshNotifier: ""})
+            let currentBlockId = data.data.rows[0].TokenId
+            this.getPosts(currentBlockId);
+            this.setState({ currentBlockId: currentBlockId, update: false, refreshNotifier: "" })
+        });
+    }
+
+    getPosts(currentTokenId) {
+        getCollectionDataV2(this.state.pageSize, currentTokenId)
+        .then((returnedTokens) => {
+            let currentTokens = this.state.tokens.concat(returnedTokens.tokenArray);
+            this.setState({ tokens: currentTokens, bottomReached: false, remainingTokenIds: returnedTokens.currentTokenId });
         });
     }
 
@@ -78,7 +72,7 @@ class MainFeed extends React.Component {
         if (windowBottom >= docHeight - bottomPageOffset && !this.state.bottomReached) {
             if (this.state.remaining === 1){
                 this.setState({ bottomReached: true })
-                this.getPosts();
+                this.getPosts(this.state.remainingTokenIds);
             }
         }
       }
@@ -99,7 +93,6 @@ class MainFeed extends React.Component {
     updateBlock = (event) => {
         event.preventDefault();
         this.setState({ tokens: [], cursor: "", remaining: 1 })
-        this.refreshPosts();
         this.getCurrentBlock();
     }
   
