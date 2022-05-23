@@ -2,13 +2,24 @@ import 'Home/App.css';
 import React from 'react';
 import { connect } from 'react-redux';
 import SearchResults from 'Search/SearchResultsComponent';
-import { getAddressFromEns } from 'Web3/Web3Client';
+import { getAddressFromEns, checkIfAddressValid } from 'Web3/Web3Client';
 
 class SearchContainer extends React.Component {
     constructor(props) {
       super(props);
       this.state = {
-        address: ""
+        address: "",
+        ens: "",
+        validAddress: true,
+      }
+    }
+
+    componentDidMount() {
+      if (this.props.state.searchReducer.searchInput.includes(".eth")) {
+        this.getByEns()
+      }
+      else {
+            this.checkIfValid(this.props.state.searchReducer.searchInput);
       }
     }
 
@@ -18,24 +29,42 @@ class SearchContainer extends React.Component {
             this.getByEns()
         }
         else {
-          this.setState({ address: "" })
+            this.checkIfValid(this.props.state.searchReducer.searchInput);
         }
       }
     }
 
     getByEns() {
-      getAddressFromEns("alex.vandesande.eth")
+      getAddressFromEns(this.props.state.searchReducer.searchInput)
       .then((resultAddress) => {
-        this.setState({ address: resultAddress })
+        if (resultAddress){
+          this.checkIfValid(resultAddress);
+          this.setState({ address: resultAddress, ens: this.props.state.searchReducer.searchInput})
+        }
+        else {
+          this.setState({ address: null, ens: null})
+        }
       })
+    }
+
+    checkIfValid(input) {
+        checkIfAddressValid(input)
+        .then(result => {
+          if (result === true){
+            this.setState({ validAddress: result, address: input })
+          }
+          else {
+            this.setState({ validAddress: result, address: input })
+          }
+        })
     }
 
     render(){
       return (
           <div>
               {this.state.address
-              ? <SearchResults searchInput={this.state.address}/>
-              : <SearchResults searchInput={this.props.state.searchReducer.searchInput}/>
+              ? <SearchResults searchInput={this.state.address} ens={this.state.ens} valid={this.state.validAddress}/>
+              : <SearchResults searchInput={null} ens={null} valid={null}/>
               }
           </div>
         );

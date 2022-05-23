@@ -8,16 +8,17 @@ import { Navigate, useParams } from 'react-router-dom';
 
 function UserContainer(props) {
     const { id } = useParams()
+    let address = id;
 
-    if (props.state.address === id){
+    if (props.state.address === address){
         return <Navigate to="/profile"/>;
     }
 
   return (
     <div>
         <Provider store={store}>
-                <AccountBox user={id} />
-                <AccountBlocks user={id} />
+                <AccountBox user={address}/>
+                <AccountBlocks user={address}/>
           </Provider>
     </div>
   );

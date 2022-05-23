@@ -17,7 +17,7 @@ class Navbar extends Component {
         this.state = {
           redirect: false,
           clicked: false,
-          searchInput: "",
+          searchInput: this.props.state.searchReducer.searchInput,
           links: ["/", "profile", "about", "contact-us"],
           items: [
             {

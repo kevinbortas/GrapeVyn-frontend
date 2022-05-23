@@ -5,9 +5,9 @@ import reportWebVitals from 'reportWebVitals';
 import RouteController from 'Root/RootController';
 
 ReactDOM.render(
-  <React.StrictMode>
-    <RouteController/>
-  </React.StrictMode>,
+  // <React.StrictMode>
+    <RouteController/>,
+  // </React.StrictMode>,
   document.getElementById('root')
 );
 

@@ -13,7 +13,7 @@ class AccountBox extends React.Component {
 
         this.state = {
             address: this.props.user ? this.props.user : this.props.state.address,
-            ens: "",
+            // ens: this.props.ens,
             windowHeight: window.innerHeight,
             windowWidth: window.innerWidth,
         }
@@ -24,7 +24,9 @@ class AccountBox extends React.Component {
     };
   
     componentDidMount() {
-        this.getEns()
+        if (!this.state.ens){
+            this.getEns()
+        }
         window.addEventListener('resize', this.updateDimensions);
     }
 
@@ -53,7 +55,7 @@ class AccountBox extends React.Component {
                         {this.state.ens
                         ?
                             <div className="EnsVerified">
-                                <Tooltip title="ENS Verified">
+                                <Tooltip title="Reverse ENS Verified">
                                     <CheckCircleIcon style={{ color: '#9c59e4', padding: '0px', fontSize: this.state.windowWidth > 750 ? 40 : 25 }}/>
                                 </Tooltip>
                             </div>
@@ -70,7 +72,7 @@ class AccountBox extends React.Component {
                             </h2>
                         }
                         </div>
-                        <a href={`https://etherscan.io/address/${this.props.userAddress}`} className="AddressLink">
+                        <a href={`https://etherscan.io/address/${this.state.address}`} className="AddressLink">
                                 {this.state.windowWidth > 400 ? this.state.address : shortenAddress(this.state.address)}
                         </a>
                     </div>

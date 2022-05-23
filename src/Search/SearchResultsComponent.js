@@ -20,10 +20,12 @@ class SearchResults extends React.Component {
             tokens: [],
             isLoading: true,
             searchInput: this.props.searchInput,
+            validAddress: this.props.valid,
             pageSize: 20,
             bottomReached: true,
-            remaining: 1,
+            remaining: 0,
             cursor: "",
+            firstRender: true,
         }
     }
   
@@ -39,7 +41,7 @@ class SearchResults extends React.Component {
 
     componentDidUpdate(prevProps, prevState) {
         if (prevState.searchInput !== this.props.searchInput) {
-            this.setState({ searchInput: this.props.searchInput, tokens: [], isLoading: true, remaining: 1, cursor: "", bottomReached: true, userAddress: "" });
+            this.setState({ searchInput: this.props.searchInput, tokens: [], isLoading: true, remaining: 1, cursor: "", bottomReached: true, userAddress: "", firstRender: true });
             this.update(this.state.indexSelected);
         }
     }
@@ -51,17 +53,13 @@ class SearchResults extends React.Component {
     }
 
     update(index) {
-        // this.setState({ tokens: null });
-
-        if (this.state.searchInput === null || this.state.searchInput === undefined || this.state.searchInput === "") {
+        if (!this.props.searchInput) {
             this.setState({ tokens: [], isLoading: false, remaining: 1, cursor: "", bottomReached: true, userAddress: "" });
             return;
         }
 
-        // this.setState({ isAddressLoading: true, isIdLoading: true, isEnsLoading: true });
-
-        if (this.state.searchInput.substring(0,2) === "0x") {
-            this.getByAddress() 
+        if (this.props.valid) {
+            this.getByAddress()
         }
         else {
             this.getById()
@@ -69,8 +67,8 @@ class SearchResults extends React.Component {
     }
 
     getByAddress() {
-        if (this.state.bottomReached){
-            getOwnedTokens(this.state.searchInput, this.state.pageSize, this.state.cursor)
+        if (this.state.bottomReached && !this.state.firstRender){
+            getOwnedTokens(this.props.searchInput, this.state.pageSize, this.state.cursor)
             .then((tokens) => {
                 if (tokens.tokenArray.length > 0){
                     let currentTokens
@@ -80,7 +78,7 @@ class SearchResults extends React.Component {
                     else {
                         currentTokens = tokens.tokenArray;
                     }
-                    this.setState({ tokens: currentTokens, isLoading: false, cursor: tokens.returnedCursor, remaining: tokens.remaining, bottomReached: false })
+                    this.setState({ tokens: currentTokens, isLoading: false, cursor: tokens.returnedCursor, remaining: tokens.remaining, bottomReached: false, })
                 }
                 else { 
                     this.setState({ tokens: [], isLoading: false, bottomReached: true, remaining: 1, cursor: "" });
@@ -90,10 +88,13 @@ class SearchResults extends React.Component {
                 this.setState({ tokens: [], isLoading: false, bottomReached: true, remaining: 1, cursor: "" });
             });
         }
+        else {
+            this.setState({ firstRender: false, bottomReached: true })
+        }
     }
 
     getById() {
-        getTokenById(this.state.searchInput)
+        getTokenById(this.props.searchInput)
         .then((token) => {
             token.length > 0
             ? this.setState({tokens: token, isLoading: false, bottomReached: false, remaining: 0 })
@@ -104,28 +105,6 @@ class SearchResults extends React.Component {
         });
     }
 
-    // getByEns() {
-    //     console.log("by ens")
-    //     if (this.state.bottomReached){
-            // getAddressFromEns("alex.vandesande.eth")
-            // .then(resultAddress => {
-            //     this.setState({ searchInput: resultAddress })
-    //             // console.log(resultAddress);
-    //             // getOwnedTokens(resultAddress, this.state.pageSize, this.state.cursor)
-    //             // .then((tokens) => {
-    //             //     if (tokens.tokenArray.length > 0){
-    //             //         let currentTokens = this.state.tokens.concat(tokens.tokenArray);
-    //             //         this.setState({ tokens: currentTokens, isLoading: false, cursor: tokens.returnedCursor, remaining: tokens.remaining, bottomReached: false })
-    //             //     }
-    //             //     else { this.setState({ tokens: [], isLoading: false, bottomReached: true, remaining: 1, cursor: "" }); }
-    //             // })
-    //             // .catch(err => {
-    //             //     this.setState({ tokens: [], isLoading: false, bottomReached: true, remaining: 1, cursor: "" });
-    //             // });
-    //         })
-    //     }
-    // }
-
     handleScroll = () => {
         let bottomPageOffset = 50;
         const windowHeight = "innerHeight" in window ? window.innerHeight : document.documentElement.offsetHeight;
@@ -135,7 +114,7 @@ class SearchResults extends React.Component {
         const windowBottom = windowHeight + window.pageYOffset;
         if (windowBottom >= docHeight - bottomPageOffset && !this.state.bottomReached) {
             if (this.state.remaining === 1){
-                this.setState({ bottomReached: true })
+                this.setState({ bottomReached: true, firstRender: false })
                 this.update();
             }
         }
@@ -151,8 +130,8 @@ class SearchResults extends React.Component {
             }
         }
         else {
-            if (checkIfAddressValid(this.state.searchInput)) {
-                uniqueUsers.push(this.state.searchInput);
+            if (this.props.valid) {
+                uniqueUsers.push(this.props.searchInput);
             }
         }
 
@@ -160,52 +139,59 @@ class SearchResults extends React.Component {
     }
 
     render() {
-      return (
-        <div>
-            <div className="SearchResults">
-                <div className="Selector">
-                    <Provider store={userMenuStore}>
-                        <BackButton/>
-                    </Provider>
-                    <Button className={this.state.className[0]} onClick={() => this.selectorClicked(0)} disableRipple>
-                        All
-                    </Button>
-                    <Button className={this.state.className[1]} onClick={() => this.selectorClicked(1)} disableRipple>
-                        User
-                    </Button>
-                    <Button className={this.state.className[2]} onClick={() => this.selectorClicked(2)} disableRipple>
-                        Posts
-                    </Button>
+        return (
+            <div>
+                <div className="SearchResults">
+                    <div className="Selector">
+                        <Provider store={userMenuStore}>
+                            <BackButton/>
+                        </Provider>
+                        <Button className={this.state.className[0]} onClick={() => this.selectorClicked(0)} disableRipple>
+                            All
+                        </Button>
+                        <Button className={this.state.className[1]} onClick={() => this.selectorClicked(1)} disableRipple>
+                            User
+                        </Button>
+                        <Button className={this.state.className[2]} onClick={() => this.selectorClicked(2)} disableRipple>
+                            Posts
+                        </Button>
+                    </div>
                 </div>
+                {
+                    !this.props.searchInput
+                    ? <h2>No results found</h2>
+                    : 
+                    this.state.isLoading
+                        ? <LoadingContentCircle/>
+                        : this.state.indexSelected === 0
+                                ? this.state.tokens.length > 0
+                                    ? 
+                                    <div>
+                                        {this.getUniqueUsers().map((item, index) => <ProfileBox key={index} user={item} selectable={true}/>)}
+                                        {this.state.tokens.map((item, index) => <Post text={item.message} blockId={item.blockId} timestamp={item.timestamp} owner={item.owner} key={index} selectable={true}/>)}
+                                    </div>
+                                : this.props.valid
+                                    ? 
+                                    <div>
+                                        {this.getUniqueUsers().map((item, index) => <ProfileBox  key={index} user={item} selectable={true}/>)}
+                                    </div>
+                                    : <h2>No results found</h2>
+                            : this.state.indexSelected === 1
+                                ? this.props.valid
+                                    ? this.getUniqueUsers().map((item, index) => <ProfileBox  key={index} user={item} selectable={true}/>)
+                                    : <h2>Not a valid address</h2>
+                                : this.state.indexSelected === 2
+                                    ? this.state.tokens.length > 0
+                                        ? this.state.tokens.map((item, index) => <Post text={item.message} blockId={item.blockId} timestamp={item.timestamp} owner={item.owner} key={index} selectable={true}/>)
+                                        : <h2>No results found</h2>
+                                    : <h2>No results found</h2>
+                }
+                {this.state.bottomReached && !this.state.isLoading && this.state.tokens.length > 0
+                    ? <LoadingContentCircle/>
+                    : null
+                }
             </div>
-            {this.state.isLoading
-                ? <LoadingContentCircle/>
-                : this.state.indexSelected === 0
-                        ? this.state.tokens.length > 0
-                            ? checkIfAddressValid(this.state.searchInput)
-                                ?
-                                <div>
-                                    {this.getUniqueUsers().map((item, index) => <ProfileBox  key={index} user={item} selectable={true}/>)}
-                                    {this.state.tokens.map((item, index) => <Post text={item.message} blockId={item.blockId} timestamp={item.timestamp} owner={item.owner} key={index} selectable={true}/>)}
-                                </div>
-                                :
-                                this.state.tokens.map((item, index) => <Post text={item.message} blockId={item.blockId} timestamp={item.timestamp} owner={item.owner} key={index} selectable={true}/>)
-                        : checkIfAddressValid(this.state.searchInput)
-                            ? 
-                            <div>
-                                {this.getUniqueUsers().map((item, index) => <ProfileBox  key={index} user={item} selectable={true}/>)}
-                            </div>
-                            : <h2>No results found</h2>
-                    : this.state.indexSelected === 1
-                        ? checkIfAddressValid(this.state.searchInput)
-                            ? this.getUniqueUsers().map((item, index) => <ProfileBox  key={index} user={item} selectable={true}/>)
-                            : <h2>Not a valid address</h2>
-                        : this.state.tokens.length > 0
-                            ? this.state.tokens.map((item, index) => <Post text={item.message} blockId={item.blockId} timestamp={item.timestamp} owner={item.owner} key={index} selectable={true}/>)
-                            : <h2>No results found</h2>
-            }
-        </div>
-      );
+        );
     }
 }
 

@@ -48,7 +48,7 @@ class MainFeed extends React.Component {
             return response.json();
         })
         .then(data => {
-            let currentBlockId = data.data.rows[0].TokenId
+            let currentBlockId = data.data.TokenId
             this.getPosts(currentBlockId);
             this.setState({ currentBlockId: currentBlockId, update: false, refreshNotifier: "" })
         });
@@ -83,7 +83,7 @@ class MainFeed extends React.Component {
             return response.json();
         })
         .then(data => {
-            let returnedBlockId = parseInt((data.data.rows[0].TokenId));
+            let returnedBlockId = parseInt((data.data.TokenId));
             if (this.state.currentBlockId < returnedBlockId){
                 this.setState({refreshNotifier: `Your GrapeVyn is behind by ${returnedBlockId - this.state.currentBlockId} token(s)`, update: true})
             }

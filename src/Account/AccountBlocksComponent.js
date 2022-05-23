@@ -16,6 +16,7 @@ class AccountBlocks extends React.Component {
             isLoading: true,
             numberOfBlocks: 0,
             address: this.props.user ? this.props.user : this.props.state.address,
+            // ens: this.props.ens,
             pageSize: 20,
             bottomReached: true,
             remaining: 1,
