@@ -5,6 +5,8 @@ import "Home/Main/MintBox.css";
 import { mintToken } from "APIController/APIHandler";
 import ProgressBar from "Dynamic/ProgressBar";
 
+const MESSAGE_LENGTH = 500;
+
 function MintBox(props) {
 
     const [errorMessage, setErrorMessage] = useState("");
@@ -14,7 +16,7 @@ function MintBox(props) {
   
     const mint = () => {
       if (mintData !== "") {
-        if (mintData.length > 500) {
+        if (mintData.length > MESSAGE_LENGTH) {
           return
         }
         setLoading(90);
@@ -42,7 +44,7 @@ function MintBox(props) {
         setErrorMessage("");
       }
 
-      if (value.target.value.length > 500){
+      if (value.target.value.length > MESSAGE_LENGTH){
         setErrorMessage("Sorry, your post is too long");
       }
     }
