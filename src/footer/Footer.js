@@ -9,7 +9,7 @@ function Footer() {
         <div className='FooterContainer'>
           <footer className="Footer">
             <div className='Socials'>
-                <IconButton href="https://twitter.com/grapevyn_" className="TwitterButton">
+                <IconButton href="https://twitter.com/grapevyn_" className="TwitterButton" disableRipple>
                     <TwitterIcon style={{ color: '#1DA1F2', fontSize: 40 }}/>
                 </IconButton>
             </div>
