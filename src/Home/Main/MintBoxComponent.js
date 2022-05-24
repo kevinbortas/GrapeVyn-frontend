@@ -14,6 +14,9 @@ function MintBox(props) {
   
     const mint = () => {
       if (mintData !== "") {
+        if (mintData.length > 500) {
+          return
+        }
         setLoading(90);
         setTransitionTime(1);
         mintToken(props.state.address, mintData)
@@ -37,6 +40,10 @@ function MintBox(props) {
       setMintData(value.target.value);
       if (props.state.isConnected) {
         setErrorMessage("");
+      }
+
+      if (value.target.value.length > 500){
+        setErrorMessage("Sorry, your post is too long");
       }
     }
 
