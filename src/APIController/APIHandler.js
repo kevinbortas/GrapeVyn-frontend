@@ -124,7 +124,5 @@ export const mintToken = async (address, message, captchaResponse) => {
         body: JSON.stringify({ message, address, signature, captchaResponse }),
     })).json()
 
-    console.log(response);
-
     return response;
 }
