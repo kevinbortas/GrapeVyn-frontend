@@ -90,6 +90,16 @@
     color: rgb(255, 85, 85);
 }
 
+.Captcha {
+    display: flex;
+    margin-top: 10px;
+    padding-top: 20px;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    border-top: 1px solid #e5e5e5;
+}
+
 @media screen and (max-width: 900px) {
     .MintBoxInput > textarea {
         font-size: 18px;

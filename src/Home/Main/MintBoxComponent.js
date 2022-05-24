@@ -4,8 +4,10 @@ import { connect } from 'react-redux';
 import "Home/Main/MintBox.css";
 import { mintToken } from "APIController/APIHandler";
 import ProgressBar from "Dynamic/ProgressBar";
+import ReCAPTCHA from "react-google-recaptcha";
 
 const MESSAGE_LENGTH = 500;
+const SITE_KEY = "6LcfNhYgAAAAAHaUNylg2uLhRK9rW4DpD9frPxbA";
 
 function MintBox(props) {
 
@@ -13,15 +15,13 @@ function MintBox(props) {
     const [mintData, setMintData] = useState("");
     const [loading, setLoading] = useState(0);
     const [transitionTime, setTransitionTime] = useState(1);
+    const [isOpen, setIsOpen] = useState(false);
   
-    const mint = () => {
+    const mint = (captchaResponse) => {
       if (mintData !== "") {
-        if (mintData.length > MESSAGE_LENGTH) {
-          return
-        }
         setLoading(90);
         setTransitionTime(1);
-        mintToken(props.state.address, mintData)
+        mintToken(props.state.address, mintData, captchaResponse)
         .then(response => {
           if(response.data.error){
             setErrorMessage(response.data.error)
@@ -39,6 +39,7 @@ function MintBox(props) {
     }
   
     const getData = (value) => {
+      setIsOpen(false);
       setMintData(value.target.value);
       if (props.state.isConnected) {
         setErrorMessage("");
@@ -55,6 +56,21 @@ function MintBox(props) {
         setTransitionTime(0);
       }
     };
+
+    const displayCaptcha = () => {
+      if (mintData.length > MESSAGE_LENGTH) {
+        return
+      }
+      else {
+        setIsOpen(true);
+      }
+    }
+
+    const captchaClicked = (value) => {
+      mint(value);
+      setIsOpen(false);
+      console.log('Captcha value:', value);
+    }
 
     useEffect(() => {
       if (!props.state.isConnected) {
@@ -79,7 +95,7 @@ function MintBox(props) {
               />
           </div>
           <div className="PostContainer">
-            <Button onClick={() => mint()} 
+            <Button onClick={() => displayCaptcha()} 
               className={"MintBoxButton"}
               disabled={ props.state.isConnected && mintData !== "" ? false : true}
               disableRipple
@@ -87,7 +103,15 @@ function MintBox(props) {
                   Post
             </Button>
             <p className="PostError">{errorMessage}</p>
+          </div>
+          {isOpen && 
+          <div className="Captcha">
+            <ReCAPTCHA
+              sitekey={SITE_KEY}
+              onChange={captchaClicked}
+            />
             </div>
+            }
       </div>
     );
 }

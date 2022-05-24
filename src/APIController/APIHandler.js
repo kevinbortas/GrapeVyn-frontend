@@ -108,7 +108,7 @@ export const getTokenData = async (id) => {
     return response["blueprint"]
 }
 
-export const mintToken = async (address, message) => {
+export const mintToken = async (address, message, captchaResponse) => {
     let signature = await sign(message);
 
     let signerAddress = ethers.utils.verifyMessage(message, signature);
@@ -121,8 +121,10 @@ export const mintToken = async (address, message) => {
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ message, address, signature }),
+        body: JSON.stringify({ message, address, signature, captchaResponse }),
     })).json()
+
+    console.log(response);
 
     return response;
 }
