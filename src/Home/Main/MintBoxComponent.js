@@ -67,9 +67,10 @@ function MintBox(props) {
     }
 
     const captchaClicked = (value) => {
-      mint(value);
+      if (value){
+        mint(value);
+      }
       setIsOpen(false);
-      console.log('Captcha value:', value);
     }
 
     useEffect(() => {
