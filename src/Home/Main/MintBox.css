@@ -90,12 +90,20 @@
     color: rgb(255, 85, 85);
 }
 
+.AgreeCheckbox {
+    display: flex;
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px solid #e5e5e5;
+}
+
 .Captcha {
     display: flex;
-    margin-top: 10px;
+    flex-direction: column;
+    margin-top: 15px;
     padding-top: 20px;
-    text-align: center;
-    align-items: center;
+    text-align: left;
+    align-items: left;
     justify-content: center;
     border-top: 1px solid #e5e5e5;
 }

@@ -1,4 +1,4 @@
-import { Link } from '@imtbl/imx-sdk';
+import { Link, ERC721TokenType } from '@imtbl/imx-sdk';
 
 // Mainnet
 // const linkAddress = 'https://link.x.immutable.com';
@@ -27,4 +27,32 @@ export const sign = async (message) => {
 
         return signer.result;
     }
+}
+
+export const prepareWithdraw = async (signature) => {
+    const response = await link.prepareWithdrawal({
+        type: ERC721TokenType.ERC721,
+        tokenId: "170",
+        tokenAddress: "0xa503e5325c59147b42dc4bc71cd5692402a67fd2",
+    })
+    
+     console.log(response)
+
+     // WithdrawalId = 4564362
+}
+
+export const completeWithdrawal = async () => {
+    const response = await link.completeWithdrawal({
+        type: ERC721TokenType.ERC721,
+        tokenId: "170",
+        tokenAddress: "0xa503e5325c59147b42dc4bc71cd5692402a67fd2",
+    })
+    
+     console.log(response)
+     // returns { transactionId: '0x...' }
+}
+
+export const getHistory = async () => {
+    const response = await link.history();
+    console.log(response);
 }

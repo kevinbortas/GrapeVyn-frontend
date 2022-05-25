@@ -1,10 +1,12 @@
 import { Button } from "@material-ui/core";
-import React, { useRef, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { connect } from 'react-redux';
 import "Home/Main/MintBox.css";
 import { mintToken } from "APIController/APIHandler";
 import ProgressBar from "Dynamic/ProgressBar";
 import ReCAPTCHA from "react-google-recaptcha";
+import Checkbox from '@mui/material/Checkbox';
+import TERMS_AND_CONDITIONS from 'docs/GrapeVyn_Terms_and_Conditions.pdf'
 
 const MESSAGE_LENGTH = 500;
 const SITE_KEY = "6LcfNhYgAAAAAHaUNylg2uLhRK9rW4DpD9frPxbA";
@@ -16,30 +18,39 @@ function MintBox(props) {
     const [loading, setLoading] = useState(0);
     const [transitionTime, setTransitionTime] = useState(1);
     const [isOpen, setIsOpen] = useState(false);
+    const [isCheckboxOpen, setIsCheckboxOpen] = useState(false);
+    const [isChecked, setIsChecked] = useState(false);
   
     const mint = (captchaResponse) => {
-      if (mintData !== "") {
-        setLoading(90);
-        setTransitionTime(1);
-        mintToken(props.state.address, mintData, captchaResponse)
-        .then(response => {
-          if(response.data.error){
-            setErrorMessage(response.data.error)
+      if (isChecked && captchaResponse) {
+        if (mintData !== "") {
+          setLoading(90);
+          setTransitionTime(1);
+          mintToken(props.state.address, mintData, captchaResponse)
+          .then(response => {
+            if(response.data.error){
+              setErrorMessage(response.data.error)
+              setLoading(0);
+            }
+            else {
+              setErrorMessage("");
+              setMintData("");
+              setLoading(100);
+            }
+          }).catch(err => {
             setLoading(0);
-          }
-          else {
-            setErrorMessage("");
-            setMintData("");
-            setLoading(100);
-          }
-        }).catch(err => {
-          setLoading(0);
-        });
+          });
+        }
+      }
+      else {
+        return
       }
     }
   
     const getData = (value) => {
       setIsOpen(false);
+      setIsChecked(false);
+      setIsCheckboxOpen(false);
       setMintData(value.target.value);
       if (props.state.isConnected) {
         setErrorMessage("");
@@ -51,20 +62,25 @@ function MintBox(props) {
     }
 
     const handleTransitionEnd = () => {
-      if (loading == 100){
+      if (loading === 100){
         setLoading(0);
         setTransitionTime(0);
       }
     };
 
-    const displayCaptcha = () => {
+    const displayCheckBox = () => {
       if (mintData.length > MESSAGE_LENGTH) {
         return
       }
       else {
-        setIsOpen(true);
+        setIsCheckboxOpen(true);
       }
     }
+
+    const handleCheck = (event) => {
+      setIsChecked(event.target.checked);
+      setIsOpen(true);
+    };
 
     const captchaClicked = (value) => {
       if (value){
@@ -96,7 +112,7 @@ function MintBox(props) {
               />
           </div>
           <div className="PostContainer">
-            <Button onClick={() => displayCaptcha()} 
+            <Button onClick={() => displayCheckBox()} 
               className={"MintBoxButton"}
               disabled={ props.state.isConnected && mintData !== "" ? false : true}
               disableRipple
@@ -105,7 +121,13 @@ function MintBox(props) {
             </Button>
             <p className="PostError">{errorMessage}</p>
           </div>
-          {isOpen && 
+          {isCheckboxOpen && 
+          <div className="AgreeCheckbox">
+              <Checkbox defaultChecked onChange={handleCheck} checked={isChecked} />
+              <p>I am 18 years of age or older and agree to the following <a href={TERMS_AND_CONDITIONS} target="_blank">terms and conditions</a>.</p>
+            </div>
+          }
+          {isOpen && isChecked &&
           <div className="Captcha">
             <ReCAPTCHA
               sitekey={SITE_KEY}

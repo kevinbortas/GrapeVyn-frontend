@@ -1,4 +1,4 @@
-import { sign } from "Web3/ImmuSDKClient.mjs";
+import { sign, prepareWithdraw, completeWithdrawal, getHistory } from "Web3/ImmuSDKClient.mjs";
 import { ethers } from "ethers";
 
 let contractAddress = "0xa503E5325c59147B42DC4bC71Cd5692402a67fD2";
@@ -109,20 +109,22 @@ export const getTokenData = async (id) => {
 }
 
 export const mintToken = async (address, message, captchaResponse) => {
-    let signature = await sign(message);
+    // let signature = await sign(message);
 
-    let signerAddress = ethers.utils.verifyMessage(message, signature);
-    if (signerAddress.toLowerCase() !== address) {
-        throw 'Address and signature do not match'
-    }
+    completeWithdrawal();
 
-    let response = await ( await fetch('https://29o8eqgw21.execute-api.eu-west-1.amazonaws.com/mintToken', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ message, address, signature, captchaResponse }),
-    })).json()
+    // let signerAddress = ethers.utils.verifyMessage(message, signature);
+    // if (signerAddress.toLowerCase() !== address) {
+    //     throw 'Address and signature do not match'
+    // }
 
-    return response;
+    // let response = await ( await fetch('https://29o8eqgw21.execute-api.eu-west-1.amazonaws.com/mintToken', {
+    //     method: 'POST',
+    //     headers: {
+    //         'Content-Type': 'application/json',
+    //     },
+    //     body: JSON.stringify({ message, address, signature, captchaResponse }),
+    // })).json()
+
+    // return response;
 }
