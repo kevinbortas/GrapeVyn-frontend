@@ -40,6 +40,7 @@ function MintBox(props) {
           }).catch(err => {
             setLoading(0);
           });
+          setIsChecked(false);
         }
       }
       else {
@@ -87,6 +88,7 @@ function MintBox(props) {
         mint(value);
       }
       setIsOpen(false);
+      setIsCheckboxOpen(false);
     }
 
     useEffect(() => {

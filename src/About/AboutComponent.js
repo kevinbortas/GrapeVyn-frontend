@@ -16,7 +16,6 @@ function AboutComponent() {
                 4. Immutable X will be prompted. You must sign to proceed.<br/>
                 5. Your post has been added to the GrapeVyn. Refresh the page to view it!
             </h3>
-            <h3>In order to use GrapeVyn, you must agree to the terms and conditions below.</h3>
             <a href={TERMS_AND_CONDITIONS} target="_blank">Terms and conditions</a>
         </div>
       );
