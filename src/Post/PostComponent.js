@@ -54,8 +54,8 @@ class Post extends React.Component {
             <div className="PostHeader">
                 <div className="PostAvatar" style={{ cursor: this.props.selectable ? "pointer" : "default"}} onClick={this.props.selectable ? () => {this.goToUserProfile()} : null}>
                     {this.props.owner
-                        ? <Jazzicon diameter={40} seed={jsNumberForAddress(this.props.owner)} />
-                        : <Avatar/>
+                        ? <Jazzicon diameter={40} seed={jsNumberForAddress(this.props.owner)}/>
+                        : <Avatar style={{ position: "inherit" }}/>
                     }
                 </div>
                 <div className="UserName">

@@ -177,7 +177,7 @@ class SearchResults extends React.Component {
                                     </div>
                                     : <h2>No results found</h2>
                             : this.state.indexSelected === 1
-                                ? this.props.valid
+                                ? this.props.valid || this.getUniqueUsers().length > 0
                                     ? this.getUniqueUsers().map((item, index) => <ProfileBox  key={index} user={item} selectable={true}/>)
                                     : <h2>Not a valid address</h2>
                                 : this.state.indexSelected === 2

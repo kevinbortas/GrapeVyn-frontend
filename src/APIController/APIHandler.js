@@ -1,17 +1,17 @@
-import { sign } from "Web3/ImmuSDKClient.mjs";
+import { sign, prepareForWithdrawal, completeWithdrawal } from "Web3/ImmuSDKClient.mjs";
 import { ethers } from "ethers";
 
-let contractAddress = "0xa503E5325c59147B42DC4bC71Cd5692402a67fD2";
+let contractAddress = "0x291466351320E6E3Bd1eEC492C36735baFaF468F";
 
-let collectionUrl = `https://api.ropsten.x.immutable.com/v1/assets?order_by=updated_at&collection=${contractAddress}`
+let collectionUrl = `https://api.x.immutable.com/v1/assets?order_by=updated_at&collection=${contractAddress}`
 
-let collectionUrlV2 = `https://api.ropsten.x.immutable.com/v1/assets/${contractAddress}/`
+let collectionUrlV2 = `https://api.x.immutable.com/v1/assets/${contractAddress}/`
 
 // Gets Token Blueprint
-let tokenURL = `https://api.ropsten.x.immutable.com/v1/mintable-token/${contractAddress}/`
+let tokenURL = `https://api.x.immutable.com/v1/mintable-token/${contractAddress}/`
 
 // Gets Token Data
-let tokenIdUrl = `https://api.ropsten.x.immutable.com/v1/assets/${contractAddress}/`
+let tokenIdUrl = `https://api.x.immutable.com/v1/assets/${contractAddress}/`
 
 const insert = (array, object) => {
     array.push(object);
@@ -65,10 +65,20 @@ export const getCollectionDataV2 = async (page_size, currentTokenId) => {
     let result = []
 
     for (page_size; page_size > 0; page_size--){
+        if (currentTokenId <= 0) {
+            break;
+        }
         let url = collectionUrlV2 + currentTokenId;
-        let response = await (await fetch(url)).json();
-        result.push(response);
-        currentTokenId--;
+        try {
+            let response = await (await fetch(url)).json();
+            if (response.code !== 'resource_not_found_code'){
+                result.push(response);
+                currentTokenId--;
+            }
+        }
+        catch(error) {
+            currentTokenId--;
+        }
     }
 
     return { tokenArray: await tokenArrayBuilder({ result }), currentTokenId };

@@ -21,9 +21,6 @@ export const reverseLookUp = async (address) => {
     const provider = window.web3.currentProvider;
     const ens = new ENS({ provider, ensAddress: getEnsAddress('1') })
 
-    // const tempAddress = "0xd1220a0cf47c7b9be7a2e6ba89f429762e7b9adb";
-    // const name = "alex.vandesande.eth";
-
     try {
         const resultName = await ens.getName(address);
         return (resultName.name);

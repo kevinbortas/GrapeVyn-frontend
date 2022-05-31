@@ -1,10 +1,6 @@
-import { Link, ERC721TokenType } from '@imtbl/imx-sdk';
+import { Link } from '@imtbl/imx-sdk';
 
-// Mainnet
-// const linkAddress = 'https://link.x.immutable.com';
-
-// Ropsten Testnet
-const linkAddress = 'https://link.ropsten.x.immutable.com';
+const linkAddress = 'https://link.x.immutable.com';
 
 // Link SDK
 const link = new Link(linkAddress);

@@ -1,7 +1,7 @@
 import React from 'react';
 import Post from 'Post/PostComponent';
 import 'Home/App.css';
-import { getCollectionData, getCollectionDataV2 } from 'APIController/APIHandler';
+import { getCollectionDataV2 } from 'APIController/APIHandler';
 import { LoadingContentCircle } from 'Dynamic/LoadingComponent';
 
 const RefreshComponent = ({ refreshNotifier, updateBlock }) => {
@@ -24,6 +24,7 @@ class MainFeed extends React.Component {
         pageSize: 10,
         bottomReached: true,
         remaining: 1,
+        isLoading: true,
     }
   
     componentDidMount() {
@@ -51,6 +52,9 @@ class MainFeed extends React.Component {
             let currentBlockId = data.data.TokenId
             this.getPosts(currentBlockId);
             this.setState({ currentBlockId: currentBlockId, update: false, refreshNotifier: "" })
+        })
+        .catch(error => {
+            this.setState({ currentBlockId: 0, update: false, refreshNotifier: "", tokens: [], isLoading: false })
         });
     }
 
@@ -58,7 +62,7 @@ class MainFeed extends React.Component {
         getCollectionDataV2(this.state.pageSize, currentTokenId)
         .then((returnedTokens) => {
             let currentTokens = this.state.tokens.concat(returnedTokens.tokenArray);
-            this.setState({ tokens: currentTokens, bottomReached: false, remainingTokenIds: returnedTokens.currentTokenId });
+            this.setState({ tokens: currentTokens, bottomReached: false, remainingTokenIds: returnedTokens.currentTokenId, isLoading: false });
         });
     }
 
@@ -69,7 +73,7 @@ class MainFeed extends React.Component {
         const html = document.documentElement;
         const docHeight = Math.max(body.scrollHeight, body.offsetHeight, html.clientHeight, html.scrollHeight, html.offsetHeight);
         const windowBottom = windowHeight + window.pageYOffset;
-        if (windowBottom >= docHeight - bottomPageOffset && !this.state.bottomReached) {
+        if (windowBottom >= docHeight - bottomPageOffset && !this.state.bottomReached && this.state.remainingTokenIds > 0) {
             if (this.state.remaining === 1){
                 this.setState({ bottomReached: true })
                 this.getPosts(this.state.remainingTokenIds);
@@ -87,12 +91,15 @@ class MainFeed extends React.Component {
             if (this.state.currentBlockId < returnedBlockId){
                 this.setState({refreshNotifier: `Your GrapeVyn is behind by ${returnedBlockId - this.state.currentBlockId} token(s)`, update: true})
             }
+        })
+        .catch(error => {
+            this.setState({ currentBlockId: 0, update: false, refreshNotifier: "", tokens: [], isLoading: false })
         });
     }
 
     updateBlock = (event) => {
         event.preventDefault();
-        this.setState({ tokens: [], cursor: "", remaining: 1 })
+        this.setState({ tokens: [], cursor: "", remaining: 1, isLoading: true })
         this.getCurrentBlock();
     }
   
@@ -104,16 +111,18 @@ class MainFeed extends React.Component {
                 : null
                 }
                 {
-                    this.state.tokens.length === 0
+                    this.state.isLoading
                     ? <LoadingContentCircle/>
-                    : 
-                    <div> 
-                    {this.state.tokens.map((item, index) => <Post text={item.message} blockId={item.blockId} timestamp={item.timestamp} owner={item.owner} key={index} selectable={true}/>)}
-                    {this.state.bottomReached
-                        ? <LoadingContentCircle/>
-                        : null
-                    }
-                    </div>
+                    : this.state.tokens.length > 0
+                        ? 
+                        <div> 
+                        {this.state.tokens.map((item, index) => <Post text={item.message} blockId={item.blockId} timestamp={item.timestamp} owner={item.owner} key={index} selectable={true}/>)}
+                        {this.state.bottomReached
+                            ? <LoadingContentCircle/>
+                            : null
+                        }
+                        </div>
+                        : <h2>Sorry no results found</h2>
                 }
             </div>
         );

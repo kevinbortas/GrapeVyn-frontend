@@ -136,7 +136,7 @@ function MintBox(props) {
               onChange={captchaClicked}
             />
             </div>
-            }
+          }
       </div>
     );
 }
