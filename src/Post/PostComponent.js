@@ -35,7 +35,7 @@ class Post extends React.Component {
     }
 
     getEns() {
-        reverseLookUp(this.state.address)
+        reverseLookUp(this.props.owner)
         .then((resultEns) => {
             if (resultEns){
                 this.setState({ ens: resultEns })
