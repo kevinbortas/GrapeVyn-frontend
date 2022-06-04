@@ -85,7 +85,7 @@ class UserBox extends React.Component {
     }
 
     getEns() {
-        reverseLookUp(this.state.address)
+        reverseLookUp(this.props.state.address)
         .then((resultEns) => {
             if (resultEns){
                 this.setState({ ens: resultEns })
