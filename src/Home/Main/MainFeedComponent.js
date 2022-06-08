@@ -3,6 +3,9 @@ import Post from 'Post/PostComponent';
 import 'Home/App.css';
 import { getCollectionDataV2 } from 'APIController/APIHandler';
 import { LoadingContentCircle } from 'Dynamic/LoadingComponent';
+import { config } from 'Constants/constants.js'
+
+const GET_CURRENT_ID_API = config.GET_CURRENT_ID_API;
 
 const RefreshComponent = ({ refreshNotifier, updateBlock }) => {
     return (
@@ -44,7 +47,7 @@ class MainFeed extends React.Component {
     }
 
     getCurrentBlock() {
-        fetch('https://29o8eqgw21.execute-api.eu-west-1.amazonaws.com/getCurrentId')
+        fetch(GET_CURRENT_ID_API)
         .then(response => {
             return response.json();
         })
@@ -61,6 +64,7 @@ class MainFeed extends React.Component {
     getPosts(currentTokenId) {
         getCollectionDataV2(this.state.pageSize, currentTokenId)
         .then((returnedTokens) => {
+            console.log(returnedTokens)
             let currentTokens = this.state.tokens.concat(returnedTokens.tokenArray);
             this.setState({ tokens: currentTokens, bottomReached: false, remainingTokenIds: returnedTokens.currentTokenId, isLoading: false });
         });
@@ -82,7 +86,7 @@ class MainFeed extends React.Component {
       }
 
     checkBlockId() {
-        fetch('https://29o8eqgw21.execute-api.eu-west-1.amazonaws.com/getCurrentId')
+        fetch(GET_CURRENT_ID_API)
         .then(response => {
             return response.json();
         })

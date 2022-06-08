@@ -1,17 +1,20 @@
-import { sign, prepareForWithdrawal, completeWithdrawal } from "Web3/ImmuSDKClient.mjs";
+import { sign } from "Web3/ImmuSDKClient.mjs";
 import { ethers } from "ethers";
+import { config } from 'Constants/constants.js'
 
-let contractAddress = "0x291466351320E6E3Bd1eEC492C36735baFaF468F";
+let contractAddress = config.CONTRACT_ADDRESS;
 
 let collectionUrl = `https://api.x.immutable.com/v1/assets?order_by=updated_at&collection=${contractAddress}`
 
-let collectionUrlV2 = `https://api.x.immutable.com/v1/assets/${contractAddress}/`
+let collectionUrlV2 = `${config.COLLECTION_URL}${contractAddress}/`
 
 // Gets Token Blueprint
-let tokenURL = `https://api.x.immutable.com/v1/mintable-token/${contractAddress}/`
+let tokenURL = `${config.TOKEN_URL}${contractAddress}/`
 
 // Gets Token Data
-let tokenIdUrl = `https://api.x.immutable.com/v1/assets/${contractAddress}/`
+let tokenIdUrl = `${config.TOKEN_URL}${contractAddress}/`
+
+let mintTokenAPI = config.MINT_TOKEN_API;
 
 const insert = (array, object) => {
     array.push(object);
@@ -119,6 +122,7 @@ export const getTokenData = async (id) => {
 }
 
 export const mintToken = async (address, message, captchaResponse) => {
+    console.log(captchaResponse);
     let signature = await sign(message);
 
     let signerAddress = ethers.utils.verifyMessage(message, signature);
@@ -126,7 +130,7 @@ export const mintToken = async (address, message, captchaResponse) => {
         throw 'Address and signature do not match'
     }
 
-    let response = await ( await fetch('https://29o8eqgw21.execute-api.eu-west-1.amazonaws.com/mintToken', {
+    let response = await ( await fetch(mintTokenAPI, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

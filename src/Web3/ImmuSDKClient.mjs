@@ -1,6 +1,7 @@
 import { Link } from '@imtbl/imx-sdk';
+import { config } from 'Constants/constants.js'
 
-const linkAddress = 'https://link.x.immutable.com';
+const linkAddress = config.LINK_ADDRESS;
 
 // Link SDK
 const link = new Link(linkAddress);
