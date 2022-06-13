@@ -4,7 +4,7 @@ import { config } from 'Constants/constants.js'
 
 let contractAddress = config.CONTRACT_ADDRESS;
 
-let collectionUrl = `https://api.x.immutable.com/v1/assets?order_by=updated_at&collection=${contractAddress}`
+let ownedCollectionUrl = `${config.OWNED_COLLECTION_URL}${contractAddress}`
 
 let collectionUrlV2 = `${config.COLLECTION_URL}${contractAddress}/`
 
@@ -56,7 +56,7 @@ export const getOwnedTokens = async (address, pageSize, cursor) => {
         parameterUrl = `&page_size=${pageSize}`;
     }
 
-    let ownedTokensUrl = collectionUrl + `&user=${address}` + parameterUrl
+    let ownedTokensUrl = ownedCollectionUrl + `&user=${address}` + parameterUrl
     let response = await (await fetch(ownedTokensUrl)).json();
     let returnedCursor = response.cursor;
     let remaining = response.remaining
@@ -85,23 +85,6 @@ export const getCollectionDataV2 = async (page_size, currentTokenId) => {
     }
 
     return { tokenArray: await tokenArrayBuilder({ result }), currentTokenId };
-}
-
-export const getCollectionData = async (pageSize, cursor) => {
-    let parameterUrl;
-    if (cursor) {
-        parameterUrl = `&page_size=${pageSize}&cursor=${cursor}`
-    }
-    else {
-        parameterUrl = `&page_size=${pageSize}`;
-    }
-
-    let url = collectionUrl + parameterUrl
-    let response = await (await fetch(url)).json();
-    let returnedCursor = response.cursor;
-    let remaining = response.remaining
-
-    return { tokenArray: await tokenArrayBuilder(response), returnedCursor, remaining };
 }
 
 export const getTokenById = async (id) => {
