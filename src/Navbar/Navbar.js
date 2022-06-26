@@ -127,7 +127,6 @@ function mapStateToProps(state) {
   function mapDispatchToProps(dispatch) {
     return {
         searchAction: (searchInput) => dispatch(searchAction(searchInput)),
-    //   menuSelected: (className, index, page) => dispatch(menuSelected(className, index, page)),
     };
   }
   

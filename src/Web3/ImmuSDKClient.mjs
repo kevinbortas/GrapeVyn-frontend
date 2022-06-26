@@ -7,7 +7,7 @@ const linkAddress = config.LINK_ADDRESS;
 const link = new Link(linkAddress);
 
 export const setUpAccount = async () => {
-    const { address, starkPublicKey } = await link.setup({});
+    const { address, starkPublicKey } = await link.setup({ providerPreference: "none" });
 
     localStorage.setItem('WALLET_ADDRESS', address);
     localStorage.setItem('STARK_PUBLIC_KEY', starkPublicKey);

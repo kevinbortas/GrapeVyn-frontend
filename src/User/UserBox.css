@@ -91,9 +91,7 @@
 .Icon {
     height: 20px;
     width: 20px;
-    /* margin-right: 20px; */
     color: white;
-    /* background-color: white; */
 }
 
 .Chevron {
@@ -101,11 +99,6 @@
     width: 20px;
     padding: 20px;
 }
-
-/* .ConnectButton:hover {
-    background-color: #8D80DB !important;
-    color: white !important;
-} */
 
 .ConnectButtonConnected {
     background-color: white !important;
@@ -116,8 +109,6 @@
     text-transform: inherit !important;
     justify-content: flex-start !important;
     border-radius: 20px !important;
-    /* height: 45px !important;
-    width: 210px !important; */
     padding-right: 20px !important;
     margin: 10px 0px 10px 0px !important;
     margin-left: 2% !important;
@@ -126,24 +117,16 @@
 
 .ConnectButtonConnected:hover {
     background-color: #E5E5E5 !important;
-    /* color: #353935 !important; */
 }
 
 .MenuComponent {
     border-top: 1px solid lightgray;
-    /* display: flex;
-    flex-wrap: wrap;
-    flex: content;
-    flex-direction: column; */
-    /* justify-content: left !important; */
 }
 
 .MenuButton {
     background-color: white !important;
     text-align: left !important;
     justify-content: left !important;
-    /* border: none !important; */
-    /* color: black !important; */
     font-size: 18px !important;
     font-weight: 700 !important;
     text-transform: inherit !important;
@@ -168,8 +151,6 @@
     color: white !important;
     text-align: left !important;
     justify-content: left !important;
-    /* border: none !important; */
-    /* color: black !important; */
     font-size: 18px !important;
     font-weight: 700 !important;
     text-transform: inherit !important;

@@ -69,8 +69,8 @@ export const shortenAddress = (address) => {
     let lastPart;
 
     if (address !== null && address !== undefined) {
-        firstPart = address.slice(0, 5);
-        lastPart = address.slice(-4);
+        firstPart = address.slice(0, 6);
+        lastPart = address.slice(-6);
         return firstPart + "..." + lastPart;
     }
 

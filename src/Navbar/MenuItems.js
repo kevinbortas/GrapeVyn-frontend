@@ -9,12 +9,6 @@ export const MenuItems = [
         cName: 'nav-links-clicked',
         image: home,
     },
-    // {
-    //     title: "Profile",
-    //     url: '/profile',
-    //     cName: 'nav-links',
-    //     image: profile,
-    // },
     {
         title: "About",
         url: '/about',
@@ -27,9 +21,4 @@ export const MenuItems = [
         cName: 'nav-links',
         image: gear,
     },
-    // {
-    //     title: "Sign up",
-    //     url: '#',
-    //     cName: 'nav-links-mobile',
-    // },
 ]

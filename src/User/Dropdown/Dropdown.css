@@ -21,7 +21,6 @@
     box-shadow: 0 0 5px 1px lightgray;
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
-    /* margin-top: 10px; */
 }
 
 li {
@@ -66,6 +65,7 @@ li:last-of-type > button:hover {
 }
 
 .selectorValue {
+    color: #353935;
     font-size: 17px;
     font-weight: 700;
     text-align: center;
@@ -96,11 +96,15 @@ li:last-of-type > button:hover {
         flex-direction: column-reverse;
         border-top-left-radius: 10px;
         border-top-right-radius: 10px;
+        border-bottom-left-radius: 0px;
+        border-bottom-right-radius: 0px;
     }
 
     li:last-of-type > button {
         border-top-left-radius: 10px;
         border-top-right-radius: 10px;
+        border-bottom-left-radius: 0px;
+        border-bottom-right-radius: 0px;
     }
     
     li:last-of-type > button:hover {
@@ -112,5 +116,6 @@ li:last-of-type > button:hover {
 
     .DropDownButton {
         border-radius: 0px;
+        margin: 0px;
     }
 }
