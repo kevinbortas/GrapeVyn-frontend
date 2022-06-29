@@ -13,6 +13,7 @@ import store from 'redux/store';
 import { storeAddress } from 'redux/actions';
 import Contact from 'contact-us/Contact';
 import User from 'User/User';
+import PostPage from 'Post/PostPage';
 
 function RouteController() {
   const [isLoaded, setIsLoaded] = useState(false);
@@ -40,6 +41,7 @@ function RouteController() {
                   <Route path="/about" element={<About />} />
                   <Route path="/contact" element={<Contact />} />
                   <Route path="/user=:id" element={<User />} />
+                  <Route path="/post=:id" element={<PostPage />} />
               </Routes>
           </BrowserRouter>
       }

@@ -64,7 +64,6 @@ class MainFeed extends React.Component {
     getPosts(currentTokenId) {
         getCollectionDataV2(this.state.pageSize, currentTokenId)
         .then((returnedTokens) => {
-            console.log(returnedTokens)
             let currentTokens = this.state.tokens.concat(returnedTokens.tokenArray);
             this.setState({ tokens: currentTokens, bottomReached: false, remainingTokenIds: returnedTokens.currentTokenId, isLoading: false });
         });

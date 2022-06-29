@@ -12,7 +12,7 @@ let collectionUrlV2 = `${config.COLLECTION_URL}${contractAddress}/`
 let tokenURL = `${config.TOKEN_URL}${contractAddress}/`
 
 // Gets Token Data
-let tokenIdUrl = `${config.TOKEN_URL}${contractAddress}/`
+let tokenIdUrl = `${config.TOKEN_DATA_URL}${contractAddress}/`
 
 let mintTokenAPI = config.MINT_TOKEN_API;
 
