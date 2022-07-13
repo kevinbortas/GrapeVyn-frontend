@@ -98,6 +98,17 @@ export const getTokenById = async (id) => {
     return await tokenArrayBuilder(response);
 }
 
+export const getTokenMetadata = async (id) => {
+    if (id.substring(0,2) === "0x"){return [];}
+    
+    let url = tokenIdUrl + id;
+    const response = { result: [await (await fetch(url)).json()] };
+
+    if (response.result[0].code === "resource_not_found_code"){return [];}
+
+    return response;
+}
+
 export const getTokenData = async (id) => {
     let url = tokenURL + id;
     let response = await (await fetch(url)).json();

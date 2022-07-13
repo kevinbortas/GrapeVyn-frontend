@@ -51,12 +51,23 @@
   }
 }
 
-@media screen and (min-width: 901px) and (max-width: 1280px) {
+@media screen and (min-width: 1281px) and (max-width: 1550px) {
   .App {
     color: #182628;
     font-family: 'Open Sans', 'Helvetica Neue', sans-serif;
     margin-left: 15%;
     margin-right: 15%;
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+@media screen and (min-width: 901px) and (max-width: 1280px) {
+  .App {
+    color: #182628;
+    font-family: 'Open Sans', 'Helvetica Neue', sans-serif;
+    margin-left: 10%;
+    margin-right: 10%;
     display: flex;
     flex-direction: column;
   }

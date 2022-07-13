@@ -37,6 +37,11 @@ export const millisecondsToTime = (ms) => {
     }
 }
 
+export const formatDate = (date) => {
+    let splitDate = date.split("T");
+    return splitDate[0]
+}
+
 export const escapeAllInnerQuotes = (str) => {
     let index = str.indexOf(`,"blockId":`);
 

@@ -1,0 +1,39 @@
+* {
+    box-sizing: border-box;
+}
+
+.column {
+    float: left;
+    padding: 10px;
+}
+
+.left {
+    width: 50%;
+    text-align: center;
+}
+
+.right {
+    width: 50%;
+}
+
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+@media screen and (max-width: 900px){
+    .row {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .left {
+        width: 100%;
+    }
+    
+    .right {
+        width: 100%;
+    }
+}

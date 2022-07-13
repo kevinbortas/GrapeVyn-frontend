@@ -1,0 +1,106 @@
+.postMetadataHeader {
+    background-color: white;
+    border-radius: 20px;
+    border: 1px solid #e5e5e5;
+    margin: 10px 0;
+    text-align: left;
+}
+
+.postMetadataInfo {
+    background-color: white;
+    border-radius: 20px;
+    border: 1px solid #e5e5e5;
+    margin: 10px 0;
+    text-align: left;
+}
+
+.status {
+    font-size: 16px;
+    padding: 15px;
+    margin: 0px;
+    color: #353935;
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.metadataImage {
+    height: 100%;
+    width: 100%;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+}
+
+.descriptionContainer {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    justify-content: space-between;
+    cursor: pointer;
+}
+
+.DescriptionChevron {
+    height: 20px;
+    width: 20px;
+    margin-right: 20px;
+}
+
+.descriptionTextAndIcon {
+    display: flex;
+    align-items: center;
+    margin-left: 10px;
+}
+
+.description {
+    font-size: 15px;
+    line-height: 22px; 
+    padding: 15px 15px 15px 15px;
+    margin: 0px;
+    color: #353935;
+    border-top: 1px solid #e5e5e5;
+    text-align: left;
+}
+
+.descriptionHeader {
+    padding: 15px;
+    margin: 0px;
+    color: #353935;
+}
+
+.detailsHeader {
+    padding: 15px;
+    margin: 0px;
+    color: #353935;
+    cursor: pointer;
+}
+
+.detailsRowFirst {
+    display: flex;
+    border-top: 1px solid #e5e5e5;
+}
+
+.detailsRow {
+    display: flex;
+}
+
+.detailsLeft {
+    text-align: left;
+    flex: 1;
+}
+
+.detailsRight {
+    text-align: right;
+    flex: 1;
+}
+
+.detailTitle {
+    font-size: 16px;
+    padding: 10px 0px 10px 15px;
+    margin: 0px;
+    color: #353935;
+}
+
+.detailData {
+    font-size: 16px;
+    padding: 10px 15px 10px 0px;
+    margin: 0px;
+    text-decoration: none;
+}
